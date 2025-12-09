@@ -1,5 +1,6 @@
 /* CSS Variables */
-:root {
+:root,
+[data-theme="dark"] {
   /* Dark background with subtle gray */
   --background: oklch(0.08 0 0);
   --foreground: oklch(0.95 0 0);
@@ -29,6 +30,41 @@
   --border: oklch(0.2 0 0);
   --input: oklch(0.15 0 0);
   --ring: oklch(0.7 0.25 200);
+
+  --radius: 0.5rem;
+}
+
+/* Light Mode */
+[data-theme="light"] {
+  /* Light background */
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.15 0 0);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+
+  /* Keep vibrant neon colors */
+  --primary: oklch(0.6 0.25 200);
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.93 0 0);
+  --secondary-foreground: oklch(0.15 0 0);
+
+  --muted: oklch(0.85 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+
+  /* Neon magenta as accent */
+  --accent: oklch(0.55 0.3 320);
+  --accent-foreground: oklch(1 0 0);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.88 0 0);
+  --input: oklch(0.93 0 0);
+  --ring: oklch(0.6 0.25 200);
 
   --radius: 0.5rem;
 }

@@ -1,6 +1,9 @@
+import { useAuth } from '../../contexts/AuthContext'
 import styles from './ProjectCard.module.css'
 
 export default function ProjectCard({ project, onDelete, onToggleFeatured }) {
+  const { isAdmin } = useAuth()
+  
   return (
     <div className={styles.card}>
       {/* Featured Badge */}
@@ -23,34 +26,36 @@ export default function ProjectCard({ project, onDelete, onToggleFeatured }) {
       </div>
 
       {/* Action Buttons */}
-      <div className={styles.actionButtons}>
-        {onToggleFeatured && (
-          <button
-            onClick={() => onToggleFeatured(project._id)}
-            className={`${styles.actionButton} ${styles.featuredButton}`}
-            title={project.isFeatured ? "Remove from featured" : "Mark as featured"}
-          >
-            <svg className={styles.actionIcon} fill={project.isFeatured ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 20 20">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={project.isFeatured ? 0 : 2} d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-          </button>
-        )}
-        {onDelete && (
-          <button
-            onClick={() => {
-              if (confirm("Are you sure you want to delete this project?")) {
-                onDelete(project._id)
-              }
-            }}
-            className={`${styles.actionButton} ${styles.deleteButton}`}
-            title="Delete project"
-          >
-            <svg className={styles.actionIcon} fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z" />
-            </svg>
-          </button>
-        )}
-      </div>
+      {isAdmin && (
+        <div className={styles.actionButtons}>
+          {onToggleFeatured && (
+            <button
+              onClick={() => onToggleFeatured(project._id)}
+              className={`${styles.actionButton} ${styles.featuredButton}`}
+              title={project.isFeatured ? "Remove from featured" : "Mark as featured"}
+            >
+              <svg className={styles.actionIcon} fill={project.isFeatured ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 20 20">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={project.isFeatured ? 0 : 2} d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </button>
+          )}
+          {onDelete && (
+            <button
+              onClick={() => {
+                if (confirm("Are you sure you want to delete this project?")) {
+                  onDelete(project._id)
+                }
+              }}
+              className={`${styles.actionButton} ${styles.deleteButton}`}
+              title="Delete project"
+            >
+              <svg className={styles.actionIcon} fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z" />
+              </svg>
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Content */}
       <div className={styles.content}>

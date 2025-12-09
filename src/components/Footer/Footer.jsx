@@ -70,13 +70,13 @@ export default function Footer() {
             <h4 className={styles.heading}>Contact</h4>
             <ul className={styles.list}>
               <li>
-                <a href="mailto:hello@portfolio.com" className={styles.link}>
-                  hello@portfolio.com
+                <a href="mailto:kushalvats1316@gmail.com" className={styles.link}>
+                  kushalvats1316@gmail.com
                 </a>
               </li>
               <li>
-                <a href="tel:+1234567890" className={styles.link}>
-                  +1 (234) 567-890
+                <a href="tel:+918800764452" className={styles.link}>
+                  88007 64452
                 </a>
               </li>
             </ul>

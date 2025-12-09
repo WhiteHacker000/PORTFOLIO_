@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 import ProjectCard from '../ProjectCard/ProjectCard'
 import styles from './ProjectsShowcase.module.css'
 
 export default function ProjectsShowcase({ showOnlyFeatured = false }) {
+  const { isAdmin } = useAuth()
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
@@ -154,10 +156,12 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
                 </svg>
               </a>
             )}
-            <button onClick={() => setShowModal(true)} className={styles.addButton}>
-              <span className={styles.addIcon}>+</span>
-              Add Project
-            </button>
+            {!showOnlyFeatured && isAdmin && (
+              <button onClick={() => setShowModal(true)} className={styles.addButton}>
+                <span className={styles.addIcon}>+</span>
+                Add Project
+              </button>
+            )}
           </div>
         </div>
 

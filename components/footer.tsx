@@ -69,15 +69,15 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href="mailto:hello@portfolio.com"
+                  href="mailto:kushalvats1316@gmail.com"
                   className="text-foreground/60 hover:text-primary transition-colors"
                 >
-                  hello@portfolio.com
+                  kushalvats1316@gmail.com
                 </a>
               </li>
               <li>
-                <a href="tel:+1234567890" className="text-foreground/60 hover:text-primary transition-colors">
-                  +1 (234) 567-890
+                <a href="tel:+918800764452" className="text-foreground/60 hover:text-primary transition-colors">
+                  8800764452
                 </a>
               </li>
             </ul>

@@ -131,6 +131,7 @@
 .desktopNav {
   display: none;
   gap: 2rem;
+  align-items: center;
 }
 
 .navLink {
@@ -142,47 +143,224 @@
   color: var(--primary);
 }
 
-.mobileMenuButton {
-  color: var(--foreground);
-  display: block;
-}
-
-.menuIcon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.mobileNav {
-  position: absolute;
-  top: 3.5rem;
-  left: 0;
-  right: 0;
-  background-color: var(--background);
-  border-bottom: 1px solid var(--border);
-}
-
-.mobileNavContent {
+/* Theme Toggle Button */
+.themeToggle {
+  background: none;
+  border: 2px solid var(--primary);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.mobileNavLink {
-  color: rgba(255, 255, 255, 0.7);
-  transition: color 0.3s ease;
+.themeToggle:hover {
+  background-color: var(--primary);
+  box-shadow: 0 0 15px var(--primary);
 }
 
-.mobileNavLink:hover {
+.themeIcon {
+  width: 1.25rem;
+  height: 1.25rem;
   color: var(--primary);
 }
 
-@media (min-width: 768px) {
-  .desktopNav {
-    display: flex;
-  }
+.themeToggle:hover .themeIcon {
+  color: var(--background);
+}
 
-  .mobileMenuButton {
-    display: none;
+/* Admin Button */
+.adminButton {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.adminButton:hover {
+  box-shadow: 
+    0 0 15px var(--accent),
+    0 0 25px var(--primary);
+  transform: translateY(-2px);
+}
+
+.adminButton.loggedIn {
+  background: linear-gradient(135deg, #00ff00, #00cc00);
+  animation: pulseGreen 2s ease-in-out infinite;
+}
+
+.adminDot {
+  color: #00ff00;
+  font-size: 1.2rem;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(0, 255, 0, 0.3),
+      0 0 20px rgba(0, 255, 0, 0.2);
   }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 0, 0.5),
+      0 0 30px rgba(0, 255, 0, 0.3);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Login Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background-color: var(--card);
+  border: 2px solid var(--primary);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 
+    0 0 20px var(--primary),
+    0 0 40px rgba(0, 255, 255, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 10px var(--primary);
+}
+
+.passwordInput {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--input);
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--foreground);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.passwordInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.modalButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.loginButton,
+.cancelButton {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.loginButton {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+}
+
+.loginButton:hover {
+  box-shadow: 
+    0 0 15px var(--primary),
+    0 0 25px var(--accent);
+  transform: translateY(-2px);
+}
+
+.cancelButton {
+  background-color: var(--secondary);
+  color: var(--foreground);
+  border: 2px solid var(--border);
+}
+
+.cancelButton:hover {
+  background-color: var(--muted);
+  border-color: var(--primary);
+}
+
+/* Mobile Theme Toggle */
+.mobileThemeToggle,
+.mobileAdminButton {
+  background: none;
+  border: 2px solid var(--primary);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.mobileThemeToggle:hover,
+.mobileAdminButton:hover {
+  background-color: var(--primary);
+  color: var(--background);
+  box-shadow: 0 0 15px var(--primary);
+}
+
+.mobileAdminButton {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  color: white;
+  border: none;
 }
