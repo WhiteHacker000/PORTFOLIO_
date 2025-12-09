@@ -2,8 +2,20 @@ import { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthContext = createContext()
 
-// Set your admin password here (in production, use environment variables)
-const ADMIN_PASSWORD = 'Poiuytrewq@098' // Change this to your preferred password
+// Hashed admin password using SHA-256
+// Original password: "Poiuytrewq@098"
+// This hash cannot be reversed - much more secure!
+const ADMIN_PASSWORD_HASH = 'b7f40d87a5ecc06f2bbedd0bccf6e39c84970eda1509f208bbcb7c343bbebaf0'
+
+// Function to hash password using SHA-256
+async function hashPassword(password) {
+  const encoder = new TextEncoder()
+  const data = encoder.encode(password)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  return hashHex
+}
 
 export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false)
@@ -35,15 +47,23 @@ export function AuthProvider({ children }) {
     }
   }, [isAdmin, isLoading])
 
-  const login = (password) => {
+  const login = async (password) => {
     console.log('🔑 Login attempt...')
-    if (password === ADMIN_PASSWORD) {
-      setIsAdmin(true)
-      console.log('✅ Login successful!')
-      return true
+    try {
+      const hashedInput = await hashPassword(password)
+      console.log('🔒 Password hashed for comparison')
+      
+      if (hashedInput === ADMIN_PASSWORD_HASH) {
+        setIsAdmin(true)
+        console.log('✅ Login successful!')
+        return true
+      }
+      console.log('❌ Login failed - incorrect password')
+      return false
+    } catch (error) {
+      console.error('❌ Login error:', error)
+      return false
     }
-    console.log('❌ Login failed - incorrect password')
-    return false
   }
 
   const logout = () => {

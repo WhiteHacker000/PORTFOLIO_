@@ -17,16 +17,22 @@ export default function Navigation() {
     { label: "Contact", href: "#contact" },
   ]
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
     console.log('🔐 Attempting login...')
-    const success = login(password)
-    if (success) {
-      setShowLogin(false)
-      setPassword('')
-      alert('✅ Login successful! You are now in Admin mode.')
-    } else {
-      alert('❌ Incorrect password. Please try again.')
+    try {
+      const success = await login(password)
+      if (success) {
+        setShowLogin(false)
+        setPassword('')
+        alert('✅ Login successful! You are now in Admin mode.')
+      } else {
+        alert('❌ Incorrect password. Please try again.')
+        setPassword('')
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      alert('❌ Login failed. Please try again.')
       setPassword('')
     }
   }
