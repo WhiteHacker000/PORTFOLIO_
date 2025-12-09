@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 const AuthContext = createContext()
 
 // Set your admin password here (in production, use environment variables)
-const ADMIN_PASSWORD = 'admin123' // Change this to your preferred password
+const ADMIN_PASSWORD = 'Poiuytrewq@098' // Change this to your preferred password
 
 export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false)

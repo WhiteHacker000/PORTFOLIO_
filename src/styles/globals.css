@@ -69,6 +69,20 @@
   --radius: 0.5rem;
 }
 
+/* Light Mode - Reduce Glow Effects */
+[data-theme="light"] .neon-glow {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  opacity: 0.9;
+}
+
+[data-theme="light"] .neon-border {
+  box-shadow: 0 0 4px var(--primary), inset 0 0 4px var(--primary);
+}
+
+[data-theme="light"] .neon-border-accent {
+  box-shadow: 0 0 4px var(--accent), inset 0 0 4px var(--accent);
+}
+
 /* Reset */
 * {
   margin: 0;

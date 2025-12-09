@@ -422,3 +422,59 @@
     display: none;
   }
 }
+
+/* Light Mode - Reduce Glow Effects */
+[data-theme="light"] .logoP {
+  text-shadow: 
+    0 0 5px var(--primary),
+    0 0 10px var(--primary);
+}
+
+[data-theme="light"] .logoF {
+  text-shadow: 
+    0 0 5px #ff0000,
+    0 0 10px #ff0000;
+}
+
+[data-theme="light"] .themeToggle:hover {
+  box-shadow: 0 0 8px var(--primary);
+}
+
+[data-theme="light"] .adminButton {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .adminButton:hover {
+  box-shadow: 
+    0 0 8px var(--accent),
+    0 0 12px var(--primary);
+}
+
+[data-theme="light"] .adminButton.loggedIn {
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+}
+
+[data-theme="light"] .modal {
+  box-shadow: 
+    0 0 10px var(--primary),
+    0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+[data-theme="light"] .modalTitle {
+  text-shadow: 0 0 5px var(--primary);
+}
+
+[data-theme="light"] .passwordInput:focus {
+  box-shadow: 0 0 5px var(--primary);
+}
+
+[data-theme="light"] .loginButton:hover {
+  box-shadow: 
+    0 0 8px var(--primary),
+    0 0 12px var(--accent);
+}
+
+[data-theme="light"] .mobileThemeToggle:hover,
+[data-theme="light"] .mobileAdminButton:hover {
+  box-shadow: 0 0 8px var(--primary);
+}

@@ -305,3 +305,22 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* Light Mode - Reduce Glow Effects */
+[data-theme="light"] .addButton {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+[data-theme="light"] .addButton:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+[data-theme="light"] .viewAllButton,
+[data-theme="light"] .viewAllButtonLarge {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+[data-theme="light"] .viewAllButton:hover,
+[data-theme="light"] .viewAllButtonLarge:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}

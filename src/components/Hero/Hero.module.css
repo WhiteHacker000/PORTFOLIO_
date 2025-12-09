@@ -221,3 +221,13 @@
     height: 400px;
   }
 }
+
+/* Light Mode - Reduce Glow Effects */
+[data-theme="light"] .primaryButton:hover {
+  box-shadow: 0 5px 15px rgba(0, 200, 255, 0.3);
+}
+
+[data-theme="light"] .photoFrame::before {
+  opacity: 0.4;
+  filter: blur(10px);
+}
