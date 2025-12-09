@@ -19,19 +19,27 @@ export default function Navigation() {
 
   const handleLogin = (e) => {
     e.preventDefault()
+    console.log('🔐 Attempting login...')
     const success = login(password)
     if (success) {
       setShowLogin(false)
       setPassword('')
+      alert('✅ Login successful! You are now in Admin mode.')
     } else {
-      alert('Incorrect password')
+      alert('❌ Incorrect password. Please try again.')
+      setPassword('')
     }
   }
 
   const handleLogout = () => {
-    logout()
-    setIsOpen(false)
+    if (confirm('Are you sure you want to logout from Admin mode?')) {
+      logout()
+      setIsOpen(false)
+      alert('👋 Logged out successfully')
+    }
   }
+
+  console.log('🎯 Navigation - isAdmin:', isAdmin)
 
   return (
     <nav className={styles.nav}>

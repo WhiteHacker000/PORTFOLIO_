@@ -19,6 +19,9 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
     isFeatured: false
   })
 
+  // Debug logging
+  console.log('🎨 ProjectsShowcase - isAdmin:', isAdmin, 'showOnlyFeatured:', showOnlyFeatured)
+
   useEffect(() => {
     // Load projects from localStorage or use demo projects
     const savedProjects = localStorage.getItem('portfolioProjects')
