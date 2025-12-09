@@ -364,3 +364,61 @@
   color: white;
   border: none;
 }
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: block;
+  color: var(--foreground);
+}
+
+.menuIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mobile Navigation */
+.mobileNav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  z-index: 40;
+}
+
+.mobileNavContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 1rem;
+}
+
+.mobileNavLink {
+  color: var(--foreground);
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+
+.mobileNavLink:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+/* Responsive - Show desktop nav on larger screens */
+@media (min-width: 768px) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .mobileMenuButton {
+    display: none;
+  }
+}
