@@ -4,7 +4,39 @@
   z-index: 50;
   background-color: rgba(20, 20, 20, 0.8);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 3px solid transparent;
+  position: relative;
+}
+
+.nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #ff0000 0%,
+    #00ffff 25%,
+    #ff0000 50%,
+    #00ffff 75%,
+    #ff0000 100%
+  );
+  background-size: 200% 100%;
+  animation: neonRun 3s linear infinite;
+  box-shadow: 
+    0 0 5px rgba(255, 0, 0, 0.4),
+    0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+@keyframes neonRun {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
 }
 
 .container {
@@ -24,12 +56,76 @@
 .logo {
   display: flex;
   align-items: center;
+  text-decoration: none;
 }
 
-.logoImage {
-  height: 3rem;
-  width: auto;
-  background-color: var(--background);
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.logoP {
+  color: var(--primary);
+  font-size: 2rem;
+  text-shadow: 
+    0 0 10px var(--primary),
+    0 0 20px var(--primary),
+    0 0 30px var(--primary);
+  animation: pulseP 2s ease-in-out infinite;
+}
+
+.logoF {
+  color: #ff0000;
+  font-size: 2rem;
+  text-shadow: 
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 30px #ff0000;
+  animation: pulseF 2s ease-in-out infinite;
+}
+
+.logoFull {
+  color: var(--foreground);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+@keyframes pulseP {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 10px var(--primary),
+      0 0 20px var(--primary),
+      0 0 30px var(--primary);
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 
+      0 0 5px var(--primary),
+      0 0 10px var(--primary),
+      0 0 15px var(--primary);
+  }
+}
+
+@keyframes pulseF {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 10px #ff0000,
+      0 0 20px #ff0000,
+      0 0 30px #ff0000;
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 
+      0 0 5px #ff0000,
+      0 0 10px #ff0000,
+      0 0 15px #ff0000;
+  }
 }
 
 .desktopNav {

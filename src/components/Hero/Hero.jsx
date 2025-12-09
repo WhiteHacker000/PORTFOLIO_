@@ -4,36 +4,53 @@ export default function Hero() {
   return (
     <section id="home" className={styles.hero}>
       <div className={styles.container}>
-        {/* Main Title */}
-        <h1 className={styles.title}>
-          <span className={`${styles.primaryText} neon-glow`}>Creative</span>
-          <span className={styles.titleBlock}>
-            <span className={`${styles.accentText} neon-glow`}>Developer</span>
-            {" & "}
-            <span className={`${styles.primaryText} neon-glow`}>Designer</span>
-          </span>
-        </h1>
+        <div className={styles.heroContent}>
+          {/* Left Side - Text Content */}
+          <div className={styles.textContent}>
+            {/* Main Title */}
+            <h1 className={styles.title}>
+              <span className={`${styles.primaryText} neon-glow`}>Creative</span>
+              <span className={styles.titleBlock}>
+                <span className={`${styles.accentText} neon-glow`}>Developer</span>
+                {" & "}
+                <span className={`${styles.primaryText} neon-glow`}>Designer</span>
+              </span>
+            </h1>
 
-        {/* Subtitle */}
-        <p className={styles.subtitle}>
-          I craft beautiful, modern digital experiences with cutting-edge technology. Specializing in full-stack
-          development and minimalist design principles.
-        </p>
+            {/* Subtitle */}
+            <p className={styles.subtitle}>
+              I craft beautiful, modern digital experiences with cutting-edge technology. Specializing in full-stack
+              development and minimalist design principles.
+            </p>
 
-        {/* CTA Buttons */}
-        <div className={styles.ctaButtons}>
-          <a
-            href="#projects"
-            className={`${styles.primaryButton} neon-glow`}
-          >
-            View My Work
-          </a>
-          <a
-            href="#contact"
-            className={styles.secondaryButton}
-          >
-            Get In Touch
-          </a>
+            {/* CTA Buttons */}
+            <div className={styles.ctaButtons}>
+              <a
+                href="#projects"
+                className={`${styles.primaryButton} neon-glow`}
+              >
+                View My Work
+              </a>
+              <a
+                href="#contact"
+                className={styles.secondaryButton}
+              >
+                Get In Touch
+              </a>
+            </div>
+          </div>
+
+          {/* Right Side - Photo */}
+          <div className={styles.photoContainer}>
+            <div className={styles.photoFrame}>
+              <img 
+                src="/Me.jpeg" 
+                alt="Profile Photo" 
+                className={styles.photo}
+              />
+              <div className={styles.photoGlow}></div>
+            </div>
+          </div>
         </div>
 
         {/* Scroll Indicator */}

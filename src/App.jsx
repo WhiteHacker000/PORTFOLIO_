@@ -20,9 +20,13 @@ function App() {
     <main className={styles.main}>
       <Navigation />
       <Hero />
-      <ProjectsShowcase />
+      <ProjectsShowcase showOnlyFeatured={true} />
       <About />
       <Contact />
+      {/* All Projects Section - shown when clicking "Projects" in nav */}
+      <section id="projects-all" className={styles.allProjectsSection}>
+        <ProjectsShowcase showOnlyFeatured={false} />
+      </section>
       <Footer />
     </main>
   )

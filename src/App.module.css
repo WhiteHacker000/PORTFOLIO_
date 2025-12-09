@@ -2,3 +2,7 @@
   min-height: 100vh;
   background: linear-gradient(to bottom right, var(--background), rgba(20, 20, 20, 0.8));
 }
+
+.allProjectsSection {
+  scroll-margin-top: 4rem;
+}

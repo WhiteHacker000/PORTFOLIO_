@@ -6,7 +6,7 @@ export default function Navigation() {
 
   const navItems = [
     { label: "Home", href: "#home" },
-    { label: "Projects", href: "#projects" },
+    { label: "Projects", href: "#projects-all" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
   ]
@@ -16,11 +16,10 @@ export default function Navigation() {
       <div className={styles.container}>
         <div className={styles.navContent}>
           <a href="/" className={styles.logo}>
-            <img
-              src="/pf-portfolio-logo.png"
-              alt="PF Portfolio"
-              className={styles.logoImage}
-            />
+            <span className={styles.logoText}>
+              <span className={styles.logoP}>P</span>
+              <span className={styles.logoF}>F</span>
+            </span>
           </a>
 
           {/* Desktop Navigation */}

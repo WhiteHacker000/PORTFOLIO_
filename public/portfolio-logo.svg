@@ -1,0 +1,51 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle with Gradient -->
+  <circle cx="256" cy="256" r="256" fill="url(#bgGradient)"/>
+  
+  <!-- Neon Glow Effect -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="url(#neonGlow)" stroke-width="3" opacity="0.6"/>
+  <circle cx="256" cy="256" r="200" fill="none" stroke="url(#neonGlow)" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Letter P with modern design -->
+  <path d="M180 140 L180 372 L190 372 L190 266 L280 266 C320 266 345 241 345 201 C345 161 320 140 280 140 L180 140 Z M190 150 L280 150 C314 150 335 166 335 201 C335 236 314 256 280 256 L190 256 L190 150 Z" fill="url(#letterGradient)" filter="url(#glow)"/>
+  
+  <!-- Accent dot -->
+  <circle cx="340" cy="145" r="12" fill="url(#accentGradient)" filter="url(#glow)"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Letter Gradient (Neon Cyan) -->
+    <linearGradient id="letterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Accent Gradient (Neon Magenta) -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff00aa;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Neon Glow Gradient -->
+    <linearGradient id="neonGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:0.5" />
+      <stop offset="50%" style="stop-color:#ff00ff;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#00ffff;stop-opacity:0.5" />
+    </linearGradient>
+    
+    <!-- Glow Filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>

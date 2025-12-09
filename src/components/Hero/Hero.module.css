@@ -7,13 +7,24 @@
 }
 
 .container {
-  max-width: 64rem;
+  max-width: 80rem;
   margin: 0 auto;
+  width: 100%;
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.textContent {
   text-align: center;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
   line-height: 1.2;
@@ -36,10 +47,74 @@
   font-size: 1.125rem;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 3rem;
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
   line-height: 1.75;
+}
+
+/* Photo Container */
+.photoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photoFrame {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  isolation: isolate;
+}
+
+.photoFrame::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  filter: blur(10px);
+  opacity: 0.4;
+  z-index: -1;
+  animation: photoGlow 3s ease-in-out infinite;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--background);
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+  filter: none;
+}
+
+.photoFrame:hover .photo {
+  transform: scale(1.05);
+}
+
+.photoGlow {
+  display: none;
+}
+
+@keyframes photoRotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes photoGlow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .ctaButtons {
@@ -95,14 +170,54 @@
   .ctaButtons {
     flex-direction: row;
   }
+  
+  .photoFrame {
+    width: 280px;
+    height: 280px;
+  }
 }
 
 @media (min-width: 768px) {
   .title {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
   }
 
   .subtitle {
     font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+  
+  .textContent {
+    text-align: left;
+  }
+  
+  .ctaButtons {
+    justify-content: flex-start;
+  }
+  
+  .title {
+    font-size: 4rem;
+  }
+  
+  .photoFrame {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .title {
+    font-size: 4.5rem;
+  }
+  
+  .photoFrame {
+    width: 400px;
+    height: 400px;
   }
 }
