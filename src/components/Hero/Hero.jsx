@@ -19,8 +19,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p className={styles.subtitle}>
-              I craft beautiful, modern digital experiences with cutting-edge technology. Specializing in full-stack
-              development and minimalist design principles.
+              I craft beautiful, modern digital experiences with cutting-edge technology. Specializing in full-stack development and minimalist design principles.
             </p>
 
             {/* CTA Buttons */}
