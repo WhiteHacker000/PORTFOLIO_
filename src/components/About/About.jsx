@@ -21,7 +21,7 @@ export default function About() {
           {/* Bio */}
           <div>
             <p className={styles.bio}>
-              I'm a passionate full-stack developer with a keen eye for design. I've worked with startups and enterprises to build scalable, user-focused applications.
+              I'm a passionate full-stack developer with a keen eye for design.
             </p>
             <p className={styles.bio}>
               My approach combines clean code, modern technologies, and minimalist design principles to create digital
