@@ -19,7 +19,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p className={styles.subtitle}>
-              I craft beautiful, modern digital experiences with cutting-edge technology. Specializing in full-stack development and minimalist design principles.
+              Full-Stack Developer with a strong problem-solving mindset, 80+ day LeetCode streak, and 100+ problems solved on CodeChef & 200+ on LeetCode. Currently learning JavaScript,Backend and building scalable web apps.
             </p>
 
             {/* CTA Buttons */}
