@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
+import { useProjects } from '../../contexts/ProjectContext'
 import ProjectCard from '../ProjectCard/ProjectCard'
 import styles from './ProjectsShowcase.module.css'
 
 export default function ProjectsShowcase({ showOnlyFeatured = false }) {
   const { isAdmin } = useAuth()
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
+  const { projects, loading, addProject, updateProject, deleteProject, toggleFeatured } = useProjects()
   const [showModal, setShowModal] = useState(false)
-  const [showAllProjects, setShowAllProjects] = useState(!showOnlyFeatured)
+  const [editingProject, setEditingProject] = useState(null)
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -19,69 +19,31 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
     isFeatured: false
   })
 
-  // Debug logging
-  console.log('🎨 ProjectsShowcase - isAdmin:', isAdmin, 'showOnlyFeatured:', showOnlyFeatured)
-
-  useEffect(() => {
-    // Load projects from localStorage or use demo projects
-    const savedProjects = localStorage.getItem('portfolioProjects')
-    if (savedProjects) {
-      setProjects(JSON.parse(savedProjects))
-    } else {
-      const demoProjects = [
-        {
-          _id: "1",
-          title: "E-Commerce Platform",
-          description:
-            "A full-stack e-commerce solution with real-time inventory management and secure payment processing.",
-          imageUrl: "/ecommerce-dashboard-modern.jpg",
-          tags: ["Next.js", "MongoDB", "Stripe", "TypeScript"],
-          githubLink: "#",
-          hostedLink: "#",
-          isFeatured: true
-        },
-        {
-          _id: "2",
-          title: "AI Task Manager",
-          description: "Intelligent task management app powered by AI for smart scheduling and prioritization.",
-          imageUrl: "/task-management-app.png",
-          tags: ["React", "AI SDK", "Node.js", "PostgreSQL"],
-          githubLink: "#",
-          hostedLink: "#",
-          isFeatured: true
-        },
-        {
-          _id: "3",
-          title: "Design System",
-          description: "Comprehensive design system with 50+ reusable components and complete documentation.",
-          imageUrl: "/design-system-library.png",
-          tags: ["React", "CSS", "Storybook", "TypeScript"],
-          githubLink: "#",
-          hostedLink: "#",
-          isFeatured: false
-        },
-      ]
-      setProjects(demoProjects)
-      localStorage.setItem('portfolioProjects', JSON.stringify(demoProjects))
-    }
-    setLoading(false)
-  }, [])
-
-  const saveProjects = (updatedProjects) => {
-    setProjects(updatedProjects)
-    localStorage.setItem('portfolioProjects', JSON.stringify(updatedProjects))
+  const resetForm = () => {
+    setFormData({
+      title: '',
+      description: '',
+      imageUrl: '',
+      githubLink: '',
+      hostedLink: '',
+      tags: '',
+      isFeatured: false
+    })
+    setEditingProject(null)
   }
 
-  const handleDeleteProject = (projectId) => {
-    const updatedProjects = projects.filter((p) => p._id !== projectId)
-    saveProjects(updatedProjects)
-  }
-
-  const handleToggleFeatured = (projectId) => {
-    const updatedProjects = projects.map(p => 
-      p._id === projectId ? { ...p, isFeatured: !p.isFeatured } : p
-    )
-    saveProjects(updatedProjects)
+  const handleEdit = (project) => {
+    setEditingProject(project)
+    setFormData({
+      title: project.title,
+      description: project.description,
+      imageUrl: project.imageUrl || '',
+      githubLink: project.githubLink || '',
+      hostedLink: project.hostedLink || '',
+      tags: project.tags ? project.tags.join(', ') : '',
+      isFeatured: project.isFeatured || false
+    })
+    setShowModal(true)
   }
 
   const handleInputChange = (e) => {
@@ -94,9 +56,8 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
-    const newProject = {
-      _id: Date.now().toString(),
+
+    const projectData = {
       title: formData.title,
       description: formData.description,
       imageUrl: formData.imageUrl || '/placeholder.jpg',
@@ -106,24 +67,24 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
       isFeatured: formData.isFeatured
     }
 
-    const updatedProjects = [...projects, newProject]
-    saveProjects(updatedProjects)
-    
-    // Reset form
-    setFormData({
-      title: '',
-      description: '',
-      imageUrl: '',
-      githubLink: '',
-      hostedLink: '',
-      tags: '',
-      isFeatured: false
-    })
+    if (editingProject) {
+      updateProject(editingProject._id, projectData)
+    } else {
+      addProject({
+        ...projectData,
+        _id: Date.now().toString()
+      })
+    }
+
+    resetForm()
     setShowModal(false)
   }
 
-  const featuredProjects = projects.filter(p => p.isFeatured)
-  const otherProjects = projects.filter(p => !p.isFeatured)
+  const displayedProjects = showOnlyFeatured
+    ? projects.filter(p => p.isFeatured)
+    : projects
+
+  const hasOtherProjects = projects.some(p => !p.isFeatured)
 
   if (loading) {
     return (
@@ -145,13 +106,13 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
               {showOnlyFeatured ? 'Featured' : 'All'} <span className={`${styles.accent} neon-glow`}>Projects</span>
             </h2>
             <p className={styles.subtitle}>
-              {showOnlyFeatured 
+              {showOnlyFeatured
                 ? 'A curated selection of my recent work, showcasing expertise in modern web development.'
                 : 'Complete portfolio of my projects and contributions.'}
             </p>
           </div>
           <div className={styles.headerActions}>
-            {showOnlyFeatured && otherProjects.length > 0 && (
+            {showOnlyFeatured && hasOtherProjects && (
               <a href="#projects-all" className={styles.viewAllButton}>
                 View All Projects
                 <svg className={styles.arrowIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +121,13 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
               </a>
             )}
             {!showOnlyFeatured && isAdmin && (
-              <button onClick={() => setShowModal(true)} className={styles.addButton}>
+              <button
+                onClick={() => {
+                  resetForm()
+                  setShowModal(true)
+                }}
+                className={styles.addButton}
+              >
                 <span className={styles.addIcon}>+</span>
                 Add Project
               </button>
@@ -168,22 +135,27 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
           </div>
         </div>
 
-        {/* Featured Projects Grid */}
-        {featuredProjects.length > 0 && (
+        {/* Projects Grid */}
+        {displayedProjects.length > 0 ? (
           <div className={styles.grid}>
-            {featuredProjects.map((project) => (
-              <ProjectCard 
-                key={project._id} 
-                project={project} 
-                onDelete={handleDeleteProject}
-                onToggleFeatured={handleToggleFeatured}
+            {displayedProjects.map((project) => (
+              <ProjectCard
+                key={project._id}
+                project={project}
+                onDelete={deleteProject}
+                onToggleFeatured={toggleFeatured}
+                onEdit={handleEdit}
               />
             ))}
+          </div>
+        ) : (
+          <div className={styles.noProjects}>
+            No projects found.
           </div>
         )}
 
         {/* Show "View All" button if on home page and there are other projects */}
-        {showOnlyFeatured && otherProjects.length > 0 && (
+        {showOnlyFeatured && hasOtherProjects && (
           <div className={styles.viewAllContainer}>
             <a href="#projects-all" className={styles.viewAllButtonLarge}>
               View All {projects.length} Projects
@@ -194,32 +166,21 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
           </div>
         )}
 
-        {/* Other Projects Section - Only show if not on home page */}
-        {!showOnlyFeatured && otherProjects.length > 0 && (
-          <>
-            <h3 className={styles.otherTitle}>Other Projects</h3>
-            <div className={styles.grid}>
-              {otherProjects.map((project) => (
-                <ProjectCard 
-                  key={project._id} 
-                  project={project} 
-                  onDelete={handleDeleteProject}
-                  onToggleFeatured={handleToggleFeatured}
-                />
-              ))}
-            </div>
-          </>
-        )}
-
-        {/* Add Project Modal */}
+        {/* Add/Edit Project Modal */}
         {showModal && (
-          <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
+          <div className={styles.modalOverlay} onClick={() => {
+            setShowModal(false)
+            resetForm()
+          }}>
             <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
               <div className={styles.modalHeader}>
-                <h3 className={styles.modalTitle}>Add New Project</h3>
-                <button onClick={() => setShowModal(false)} className={styles.closeButton}>×</button>
+                <h3 className={styles.modalTitle}>{editingProject ? 'Edit Project' : 'Add New Project'}</h3>
+                <button onClick={() => {
+                  setShowModal(false)
+                  resetForm()
+                }} className={styles.closeButton}>×</button>
               </div>
-              
+
               <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>Project Title *</label>
@@ -311,11 +272,18 @@ export default function ProjectsShowcase({ showOnlyFeatured = false }) {
                 </div>
 
                 <div className={styles.formActions}>
-                  <button type="button" onClick={() => setShowModal(false)} className={styles.cancelButton}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowModal(false)
+                      resetForm()
+                    }}
+                    className={styles.cancelButton}
+                  >
                     Cancel
                   </button>
                   <button type="submit" className={styles.submitButton}>
-                    Add Project
+                    {editingProject ? 'Save Changes' : 'Add Project'}
                   </button>
                 </div>
               </form>
