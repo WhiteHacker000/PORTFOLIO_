@@ -1,3 +1,4 @@
+// Trigger redeploy: 2026-01-10T17:15:00
 import { useState, useEffect } from 'react'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { AuthProvider } from './contexts/AuthContext'

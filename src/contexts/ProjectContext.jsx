@@ -11,40 +11,7 @@ export function ProjectProvider({ children }) {
     if (savedProjects) {
       setProjects(JSON.parse(savedProjects))
     } else {
-      const demoProjects = [
-        {
-          _id: "1",
-          title: "E-Commerce Platform",
-          description: "A full-stack e-commerce solution with real-time inventory management and secure payment processing.",
-          imageUrl: "/ecommerce-dashboard-modern.jpg",
-          tags: ["Next.js", "MongoDB", "Stripe", "TypeScript"],
-          githubLink: "https://github.com",
-          hostedLink: "https://demo.com",
-          isFeatured: true
-        },
-        {
-          _id: "2",
-          title: "AI Task Manager",
-          description: "Intelligent task management app powered by AI for smart scheduling and prioritization.",
-          imageUrl: "/task-management-app.png",
-          tags: ["React", "AI SDK", "Node.js", "PostgreSQL"],
-          githubLink: "https://github.com",
-          hostedLink: "https://demo.com",
-          isFeatured: true
-        },
-        {
-          _id: "3",
-          title: "Design System",
-          description: "Comprehensive design system with 50+ reusable components and complete documentation.",
-          imageUrl: "/design-system-library.png",
-          tags: ["React", "CSS", "Storybook", "TypeScript"],
-          githubLink: "https://github.com",
-          hostedLink: "https://demo.com",
-          isFeatured: false
-        },
-      ]
-      setProjects(demoProjects)
-      localStorage.setItem('portfolioProjects', JSON.stringify(demoProjects))
+      setProjects([])
     }
     setLoading(false)
   }, [])
@@ -60,7 +27,7 @@ export function ProjectProvider({ children }) {
   }
 
   const updateProject = (projectId, updatedData) => {
-    const updated = projects.map(p => 
+    const updated = projects.map(p =>
       p._id === projectId ? { ...p, ...updatedData } : p
     )
     setProjects(updated)
@@ -74,7 +41,7 @@ export function ProjectProvider({ children }) {
   }
 
   const toggleFeatured = (projectId) => {
-    const updated = projects.map(p => 
+    const updated = projects.map(p =>
       p._id === projectId ? { ...p, isFeatured: !p.isFeatured } : p
     )
     setProjects(updated)
@@ -82,13 +49,13 @@ export function ProjectProvider({ children }) {
   }
 
   return (
-    <ProjectContext.Provider value={{ 
-      projects, 
-      loading, 
-      addProject, 
-      updateProject, 
-      deleteProject, 
-      toggleFeatured 
+    <ProjectContext.Provider value={{
+      projects,
+      loading,
+      addProject,
+      updateProject,
+      deleteProject,
+      toggleFeatured
     }}>
       {children}
     </ProjectContext.Provider>
