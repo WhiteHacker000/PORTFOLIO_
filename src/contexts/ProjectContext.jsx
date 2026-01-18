@@ -20,8 +20,17 @@ export function ProjectProvider({ children }) {
 
         if (!error && data) {
           console.log('📦 Projects fetched from Supabase:', data.length)
-          setProjects(data)
-          localStorage.setItem('portfolioProjects', JSON.stringify(data))
+          // Map snake_case from DB to camelCase for the frontend
+          const mappedData = data.map(p => ({
+            ...p,
+            _id: p.id, // Use Supabase uuid as _id
+            imageUrl: p.image_url,
+            githubLink: p.github_link,
+            hostedLink: p.hosted_link,
+            isFeatured: p.is_featured
+          }))
+          setProjects(mappedData)
+          localStorage.setItem('portfolioProjects', JSON.stringify(mappedData))
           setLoading(false)
           return
         }
